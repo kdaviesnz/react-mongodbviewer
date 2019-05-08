@@ -1,0 +1,11 @@
+{
+  "verbose": true,
+  "watch": [
+    "./public/src",
+    "./public/index.html",
+    "./public/stylesheets",
+    "./public/images",
+    "./routes"
+  ],
+  "exec": "webpack --mode=development --config webpack.config.js && node ./bin/www"
+}

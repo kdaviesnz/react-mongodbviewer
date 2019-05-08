@@ -1,0 +1,180 @@
+#express --no-view react-mongodbv2
+
+
+BABEL
+
+#npm install --save-dev @babel/core @babel/cli
+#npm install --save-dev @babel/preset-env
+#npm install --save-dev @babel/preset-react
+
+#DEBUG=react-mongodbv2:* npm start
+
+#babel ./public/src --out-dir ./public/javascripts --source-maps inline
+#babel ./public/src --out-file ./public/javacripts/compiled --source-maps inline
+
+#babel ./public/src --out-dir ./public/javascripts --presets=@babel/preset-env,@babel/preset-react --source-maps inline
+
+// With .babelrc
+#babel ./public/src --out-dir ./public/javascripts --source-maps inline
+
+// Watch
+#babel ./public/src --out-dir ./public/javascripts --watch --source-maps inline
+
+
+.babelrc:
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ]
+}
+
+
+
+WEBPACK
+
+#npm install webpack --save-dev
+#npm install webpack-cli --save-dev
+#mkdir ./public/dist
+#mkdir ./public/src
+#webpack --entry ./public/src/main.js
+#webpack --mode development --entry ./public/src/main.js
+
+https://webpack.js.org/loaders/babel-loader/#root
+#npm install --save-dev babel-loader
+
+webpack.config.js
+const path = require('path');
+
+module.exports = {
+    entry: './public/src/main.js',
+    output: {
+        filename: 'main.js',
+        path: path.resolve(__dirname, './public/dist')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
+        ]
+    }
+};
+
+#webpack --config webpack.config.js --mode development
+
+  "scripts": {
+    "start": "node ./bin/www"
+    "build": "webpack --config webpack.config.js --mode development"
+  },
+
+
+NODEMON
+
+#npm install --save-dev nodemon
+
+// Will look for start entry in package.json
+#nodemon
+
+package.json
+  "scripts": {
+    "start": "node ./bin/www",
+    "build": "webpack --config webpack.config.js --mode development",
+    "development": "nodemon"
+  },
+#npm run development
+
+nodemon.json
+{
+  "verbose": false,
+  "watch": [
+    "./public/src"
+  ],
+  "exec": "webpack --mode=development --config webpack.config.js && node ./bin/www"
+}
+
+
+REACT-HOT-LOADER
+
+#npm install react-hot-loader
+// .babelrc
+{
+  "plugins": ["react-hot-loader/babel"]
+}
+
+./public/src/main.js
+import {hot} from "react-hot-loader";
+...
+export default hot(module)(App)
+
+webpack.config.js
+    ...
+resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    }
+}
+
+
+
+
+MONGODB
+
+#npm install mongodb --save
+
+
+
+
+REACT
+
+#npm install react --save
+#npm install react-dom --save
+#npm install react-router-dom --save
+#npm install react-json-tree --save
+#npm install @hot-loader/react-dom --save-dev
+
+
+
+TESTS
+
+#mkdir __tests__
+__tests__/About.test.js:
+describe('About', function() {
+    it('Testing About component', (done)=>{
+        const TestUtils = require('react-dom/test-utils')
+        const { createRenderer } = require('react-test-renderer/shallow')
+        const React = require('react')
+        const ReactDOM = require('react-dom')
+        const About = require('../client/About.js')
+        done()
+    })
+})
+
+#npm install jest --save-dev
+#npm install react-test-renderer --save-dev
+package.json
+  "scripts": {
+    "start": "node ./bin/www",
+    "build": "webpack --config webpack.config.js --mode development",
+    "development": "nodemon",
+    "test": "jest --no-cache"
+  },
+#npm install babel-jest --save-dev
+
+Gotcha:
+
+        const temp = require('../public/src/About.js')
+        const About = temp.default
+
+Not
+
+        const About = require('../public/src/About.js')
+
+Can't scurry functions.
