@@ -130,14 +130,11 @@ class MongoDBManagementContainer extends React.Component {
     }
 
     handleQueryChange(event) {
-        console.log("handleQueryChange")
         this.setState({
                 query: event.target.value
             }
         )
-        console.log(this.state.query)
     }
-
 
     handleQuery(event) {
         event.preventDefault()

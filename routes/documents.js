@@ -29,9 +29,11 @@ router.post('/', function(req, res, next) {
             const db = client.db(req.body.database)
             const collection = req.body.collection
 
+            console.log('req:')
+            console.log(req.body.query)
+
             // The find() method with no parameters returns all documents from a collection and returns all fields for the documents.
-           // const cursor = db.collection(collection).find(req.body.query)
-            const query_object = req.body.query === ""?"":JSON.parse(req.body.query)
+            const query_object = req.body.query === ""?"":JSON.parse(req.body.query.trim())
             console.log(query_object)
             const cursor = db.collection(collection).find(query_object)
             const documents = []
