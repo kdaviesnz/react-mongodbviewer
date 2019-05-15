@@ -1,5 +1,5 @@
 {
-  "name": "Mongo DB Viewer",
+  "name": "mongodbviewer",
   "version": "0.0.1",
   "description": "MERN app for viewing Mongo databases with very basic interface.",
   "keywords": "mongodb, mongo, database viewer, MERN",
